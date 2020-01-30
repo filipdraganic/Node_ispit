@@ -104,7 +104,7 @@ router.post('/',async(req,res) =>{
     let sess = req.session;
     if(sess.email) {
         try {
-
+            let prodavac_id = 8;
             let db = new sqlite3.Database("../Django/db.sqlite3", (err) => {
                 if (err) {
                     console.error(err.message)
@@ -113,18 +113,29 @@ router.post('/',async(req,res) =>{
                 } else{
                     console.log("Uspesno konektovano za bazu")
                     let rovovi = []
+                    console.log(`SELECT * FROM auth_user WHERE email= '`+ req.session.email+"'")
+                    db.get(`SELECT * FROM auth_user WHERE email= '`+ req.session.email+"'", (err, row) => {
+                        if (err) {
 
-                    db.run('INSERT INTO oglas_oglas(cena, ime, brojPregleda, kategorija, datumPostavljanja, prodavac_id, preostaloVreme, opis) VALUES(?,?,?,?,?,?,?,?)',
-                        req.body.cena, req.body.ime, 0, req.body.kategorija, Date.now(), req.body.idProdavca, req.body.preostaloVreme, req.body.opis, (err) => {
-                            if (err) {
+                            console.error(err.message);
+                        }
+                        console.log(row.id + "\t" + row.username);
 
-                                console.error(err.message);
-                            }
-                            db.close()
-                            return res.status(200).send("Uspeh")
+                        prodavac_id = row.id
+                        db.run('INSERT INTO oglas_oglas(cena, ime, brojPregleda, kategorija, datumPostavljanja, prodavac_id, preostaloVreme, opis) VALUES(?,?,?,?,?,?,?,?)',
+                            req.body.cena, req.body.ime, 0, req.body.kategorija, Date.now(), prodavac_id, req.body.preostaloVreme, req.body.opis, (err) => {
+                                if (err) {
+
+                                    console.error(err.message);
+                                }
+                                db.close()
+                                return res.status(200).send("Uspeh")
 
 
-                        });
+                            });
+
+                    });
+
 
 
 

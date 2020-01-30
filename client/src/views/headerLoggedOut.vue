@@ -9,7 +9,7 @@
             </div>
             <div class="col col-4" >
 
-                <a href="../../../" ><img src="..\assets\headerlogo128.png" id="logo"></a>
+                <a v-on:click="goToHome()"><img src="..\assets\headerlogo128.png" id="logo"></a>
 
 
             </div>
@@ -92,6 +92,11 @@
                 this.$router.push({path: 'noviOglas'})
 
             },
+
+			goToHome: function () {
+				this.$router.go()
+
+			}
 
         },
 

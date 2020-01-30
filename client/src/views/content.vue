@@ -86,18 +86,19 @@
 
 
         async created(){
+			window.scrollTo(0, 0);
 
-            try{
+			try{
                 let obj = await oglasiServis.getOglasi();
                 this.oglasi = obj;
 
-                console.log("objekti su = " + obj);
+                //console.log("objekti su = " + obj);
                 //oglasiVue.splitOpis(nesto);
                 let i = 0;
 
                 for(i = 0; i < this.oglasi.length; i++){
                     //console.log(this.oglasi[i].opis);
-                    console.log(oglasiServis.splitOpis(this.oglasi[i]));
+                    //console.log(oglasiServis.splitOpis(this.oglasi[i]));
                     //;
 
                 }

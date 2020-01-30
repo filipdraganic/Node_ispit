@@ -58,11 +58,11 @@ class oglasiServis{
         }
     }
 
-    async postOglas(ime, preostaloVreme, cena, prodvac, opis, kategorija ){
-
+    async postOglas(ime, preostaloVreme, cena, prodavac_id, opis, kategorija ){
+        console.log("prodavac_id ===== " + prodavac_id )
         try{
             return await axios.post(url, {
-                ime, preostaloVreme, cena, prodvac, opis, kategorija
+                ime, preostaloVreme, cena, opis, kategorija
             })
         }catch (e) {
             console.log(e);

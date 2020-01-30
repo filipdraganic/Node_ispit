@@ -72,15 +72,17 @@
                 promenjiva = await korisnickiServis.loginKorisnik(this.email,this.password);
 
                 if(promenjiva.status === 200){
-                    this.$router.go('/')
                     this.ulogovan = true;
                     console.log("Nije error =")
                     console.log(promenjiva.data);
                     $('.modal').modal('hide');
 
+					console.log("ovo je id nakon logina" + promenjiva.data.id)
+                    this.$store.commit('setID', promenjiva.data.id)
+					console.log("id = " + this.$store.getters.getId)
+					this.$router.go()
 
-
-                }
+				}
                 else{
                     this.ulogovan = false;
                     console.log("error = ");

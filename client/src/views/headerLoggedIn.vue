@@ -9,7 +9,7 @@
             </div>
             <div class="col col-4" >
 
-                <a href="../../../" ><img src="..\assets\headerlogo128.png" id="logo"></a>
+                <a v-on:click="goToHome()" ><img src="..\assets\headerlogo128.png" id="logo"></a>
 
 
             </div>
@@ -20,7 +20,7 @@
 <!--                    <div class="col col-3" ></div>-->
 
                     <div class="text-center col col-6">
-                        <a id="noviOglasDugme" href="" class="btn btn-default btn-rounded mb-4 " v-on:click="idiNaNoviOglas()">Novi oglas</a>
+                        <a id="noviOglasDugme" href="" class="btn btn-default btn-rounded mb-4 " href="/noviOglas">Novi oglas</a>
                     </div>
                     <div class="text-center col col-6">
                         <a id="logoutDugme" href="" class="btn btn-default btn-rounded mb-4 " v-on:click="logout()">Logout</a>
@@ -75,10 +75,11 @@
         },
 
         async created(){
+			console.log("HEADER ID KORISINIKA KOJI ZELI DA NAPRAVI OVAJ OGLAS JE =============== "+ this.$store.state.idKorisnika )
 
 
 
-        },
+		},
 
         methods:{
 
@@ -95,8 +96,14 @@
 
             logout: async function(){
             	let promenjiva = await korisnickiServis.logoutKorisnik();
-            	this.$router.go('/')
-            }
+            	this.$router.go()
+                this.$store.commit('setID', -2)
+            },
+
+			goToHome: function () {
+				this.$router.go()
+
+			}
 
         },
 

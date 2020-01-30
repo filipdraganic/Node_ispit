@@ -85,25 +85,6 @@
                         <textarea class="form-control" id="opis" rows="3" placeholder="Opis vaseg oglasa" v-model="opis"></textarea>
                     </div>
 
-<!--                    <div class="md-form mb-4">-->
-<!--                        <i class="fas fa-lock prefix grey-text"></i>-->
-<!--                        <label data-error="wrong" data-success="right" ></label>-->
-<!--                        <b-dropdown id="kategorija" text="Kategorija za oglas" class="m-md-2" v-model="kategorija">-->
-<!--                            <b-dropdown-item>Odeca</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Aksesoari</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Mobilni telefoni</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Tehnika</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Auto i moto</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Knjige</b-dropdown-item>-->
-<!--                            <b-dropdown-item>Umetnost</b-dropdown-item>-->
-<!--                        </b-dropdown>-->
-<!--                    </div>-->
-
-
-
-<!--                    <form id="imgur">-->
-<!--                        <input type="file" class="imgur" accept="image/*" data-max-size="5000" v-on:change="slika"/>-->
-<!--                    </form>-->
 
 
 
@@ -195,12 +176,16 @@
             }
 
         },
+        created() {
+			console.log("CREATED ID KORISINIKA KOJI ZELI DA NAPRAVI OVAJ OGLAS JE =============== "+ this.$store.state.idKorisnika )
+
+		},
 
         methods: {
 
             konzola: function(){
                 //console.log('cena = #' +this.cena + '# ime oglasa = #' +this.imeOglasa +'# presotalo vreme = #' +this.preostaloVreme+'# opis =  #' +this.opis+'# kategorija =  #' +this.kategorija+'# slike =  #' + this.slika);
-
+                console.log("ID KORISINIKA KOJI ZELI DA NAPRAVI OVAJ OGLAS JE =============== "+ this.$store.state.idKorisnika )
 
                 if(this.imeOglasa.length < 2) {
                     document.getElementById("imeOglasa").classList.add('is-invalid');
@@ -240,62 +225,13 @@
                     document.getElementById("opis").classList.remove('is-invalid');
 
                 }
+                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                console.log(this.$store.state.idKorisnika)
 
-
-                oglasiServis.postOglas(this.imeOglasa, parseInt(this.preostaloVreme) *86400, this.cena, 1, this.opis, this.kategorija  )
-                this.$router.go('/')
-
+				oglasiServis.postOglas(this.imeOglasa, parseInt(this.preostaloVreme) *86400, this.cena, this.$store.getters.getId, this.opis, this.kategorija  )
+                this.$router.push({name:"home"})
             },
 
-            uploadToImgur: function () {
-
-                $('input[type=file]').on("change", function () {
-
-                    var $files = $(this).get(0).files;
-
-                    if ($files.length) {
-
-                        // Reject big files
-                        if ($files[0].size > $(this).data("max-size") * 1024) {
-                            console.log("Please select a smaller file");
-                            return false;
-                        }
-
-                        // Begin file upload
-                        console.log("Uploading file to Imgur..");
-
-                        // Replace ctrlq with your own API key
-                        var apiUrl = 'https://api.imgur.com/3/image';
-                        var apiKey = 'ctrlq';
-
-                        var settings = {
-                            async: false,
-                            crossDomain: true,
-                            processData: false,
-                            contentType: false,
-                            type: 'POST',
-                            url: apiUrl,
-                            headers: {
-                                Authorization: 'f344e3fbb5ef93c ' + 'e1016826715684e18c6833697f4748a45aed2bef',
-                                Accept: 'application/json'
-                            },
-                            mimeType: 'multipart/form-data'
-                        };
-
-                        var formData = new FormData();
-                        formData.append("image", $files[0]);
-                        settings.data = formData;
-
-                        // Response contains stringified JSON
-                        // Image URL available at response.data.link
-                            console.log(response);
-
-
-                    }
-                });
-
-
-            }
         }
     }
 

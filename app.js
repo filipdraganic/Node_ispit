@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 const session = require('express-session');
 const redis = require('redis');
+const history = require('connect-history-api-fallback')
 
 const cors = require("cors")
 // const redisStore = require('connect-redis')(session);
@@ -16,12 +17,16 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+const vuepublic = express.static(path.join(__dirname, 'dist'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 
+app.use(vuepublic)
+app.use(history())
+app.use(vuepublic);
 
 
 app.use(logger('dev'));

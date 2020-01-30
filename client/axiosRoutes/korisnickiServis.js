@@ -25,6 +25,7 @@ class korisckiServis {
 
     async postKorisnik(ime,prezime,email,password,adresa,grad,username){
         let response;
+
         console.log("username i password " + password + '  ' + username);
         try {
             response = await axios.post(url+'registracija', {
@@ -69,6 +70,7 @@ class korisckiServis {
 
     async logoutKorisnik(){
         let error;
+
         return axios.get(url+'session/logout',{
             withCredentials:true
         })

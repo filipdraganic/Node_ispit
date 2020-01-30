@@ -241,9 +241,9 @@ router.post('/login', async (req,res) =>{
                             console.log("Ulogovan korisnik");
                             console.log("OVO JE SESSION.EMAIL = " + req.session.email);
                             db.close()
-
+                            let id = row.id
                             console.log("///////////////////////////////")
-                            return res.status(200).send(true);
+                            return res.status(200).send({ulogovan:true, id:id});
 
                         }
                         else{

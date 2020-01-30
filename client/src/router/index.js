@@ -4,14 +4,15 @@ import Home from '../views/Home.vue'
 import oglasi from "../components/oglasi";
 import noviOglas from "../components/noviOglas";
 import App from '../App'
+import content from "../views/content";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'home',
-    component: Home
+    component: content
   },
   {
     path: '/oglasi/:id',
